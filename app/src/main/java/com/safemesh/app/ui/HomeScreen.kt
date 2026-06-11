@@ -12,7 +12,9 @@ import androidx.compose.ui.unit.dp
 fun HomeScreen(
     onSosClick: () -> Unit,
     onCheckInClick: () -> Unit,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    onContactsClick: () -> Unit
+
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -38,6 +40,11 @@ fun HomeScreen(
 
         Button(onClick = onSettingsClick) {
             Text("Settings")
+        }
+
+
+        Button(onClick = onContactsClick) {
+            Text("Emergency Contacts")
         }
     }
 }
