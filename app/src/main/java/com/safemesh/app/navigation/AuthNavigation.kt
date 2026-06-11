@@ -1,9 +1,9 @@
 package com.safemesh.app.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.*
-import android.widget.Toast
-import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.safemesh.app.auth.AuthRoutes
 import com.safemesh.app.ui.auth.LoginScreen
 import com.safemesh.app.ui.auth.SignupScreen
@@ -12,7 +12,6 @@ import com.safemesh.app.ui.auth.SignupScreen
 fun AuthNavigation() {
 
     val navController = rememberNavController()
-    val context = LocalContext.current
 
     NavHost(
         navController = navController,
@@ -25,11 +24,11 @@ fun AuthNavigation() {
 
                 onLoginClick = { email, password ->
 
-                    Toast.makeText(
-                        context,
-                        "Login: $email",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    navController.navigate("app") {
+                        popUpTo(AuthRoutes.Login.route) {
+                            inclusive = true
+                        }
+                    }
                 },
 
                 onSignupClick = {
@@ -44,17 +43,21 @@ fun AuthNavigation() {
 
                 onSignupClick = { name, email, password ->
 
-                    Toast.makeText(
-                        context,
-                        "Account Created",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    navController.navigate("app") {
+                        popUpTo(AuthRoutes.Signup.route) {
+                            inclusive = true
+                        }
+                    }
                 },
 
                 onLoginClick = {
                     navController.popBackStack()
                 }
             )
+        }
+
+        composable("app") {
+            AppNavigation()
         }
     }
 }

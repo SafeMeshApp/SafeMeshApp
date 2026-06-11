@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.safemesh.app.navigation.AuthNavigation
 import com.safemesh.app.ui.theme.SafeMeshTheme
+import com.safemesh.app.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
 
