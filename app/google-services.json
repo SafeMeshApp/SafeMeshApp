@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746580361397",
+    "project_id": "safemesh-ec513",
+    "storage_bucket": "safemesh-ec513.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746580361397:android:122b5ba74ce5d38c243efc",
+        "android_client_info": {
+          "package_name": "com.safemesh.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5otZAjgWGiM-09MTLKTShhUttgvSO_MA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

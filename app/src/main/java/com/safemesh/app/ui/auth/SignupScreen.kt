@@ -8,7 +8,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SignupScreen(
-    onSignupClick: (String, String, String) -> Unit,
+    onSignupClick: (
+        String,
+        String,
+        String,
+        (String) -> Unit
+    ) -> Unit,
     onLoginClick: () -> Unit
 ) {
 
@@ -55,7 +60,6 @@ fun SignupScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-
         if (error.isNotEmpty()) {
             Text(
                 text = error,
@@ -88,14 +92,37 @@ fun SignupScreen(
                     }
 
                     else -> {
+
                         error = ""
-                        onSignupClick(name, email, password)
+
+                        onSignupClick(
+                            name,
+                            email,
+                            password
+                        ) { firebaseError ->
+
+                            error = when {
+
+                                firebaseError.contains("already", true) ->
+                                    "Email already registered"
+
+                                firebaseError.contains("email", true) ->
+                                    "Invalid email"
+
+                                firebaseError.contains("password", true) ->
+                                    "Weak password"
+
+                                else ->
+                                    firebaseError
+                            }
+                        }
                     }
                 }
             }
         ) {
             Text("Create Account")
         }
+
         TextButton(
             onClick = onLoginClick
         ) {

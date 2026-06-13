@@ -8,13 +8,18 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoginScreen(
-    onLoginClick: (String, String) -> Unit,
+    onLoginClick: (
+        String,
+        String,
+        (String) -> Unit
+    ) -> Unit,
     onSignupClick: () -> Unit
 ) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var error by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,8 +78,28 @@ fun LoginScreen(
                     }
 
                     else -> {
+
                         error = ""
-                        onLoginClick(email, password)
+
+                        onLoginClick(
+                            email,
+                            password
+                        ) { firebaseError ->
+
+                            error = when {
+                                firebaseError.contains("password", true) ->
+                                    "Incorrect password"
+
+                                firebaseError.contains("user", true) ->
+                                    "No account found"
+
+                                firebaseError.contains("email", true) ->
+                                    "Invalid email"
+
+                                else ->
+                                    firebaseError
+                            }
+                        }
                     }
                 }
             }

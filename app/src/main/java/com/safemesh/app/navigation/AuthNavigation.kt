@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.safemesh.app.auth.AuthRoutes
+import com.safemesh.app.auth.FirebaseAuthManager
 import com.safemesh.app.ui.auth.LoginScreen
 import com.safemesh.app.ui.auth.SignupScreen
 
@@ -12,21 +13,42 @@ import com.safemesh.app.ui.auth.SignupScreen
 fun AuthNavigation() {
 
     val navController = rememberNavController()
+    val authManager = FirebaseAuthManager()
 
+    val startDestination =
+        if (authManager.currentUser() != null)
+            "app"
+        else
+            AuthRoutes.Login.route
     NavHost(
         navController = navController,
-        startDestination = AuthRoutes.Login.route
+        startDestination = startDestination
     ) {
 
         composable(AuthRoutes.Login.route) {
 
             LoginScreen(
 
-                onLoginClick = { email, password ->
+                onLoginClick = { email, password, onError ->
 
-                    navController.navigate("app") {
-                        popUpTo(AuthRoutes.Login.route) {
-                            inclusive = true
+                    authManager.login(
+                        email,
+                        password
+                    ) { success, error ->
+
+                        if (success) {
+
+                            navController.navigate("app") {
+                                popUpTo(AuthRoutes.Login.route) {
+                                    inclusive = true
+                                }
+                            }
+
+                        } else {
+
+                            onError(
+                                error ?: "Login failed"
+                            )
                         }
                     }
                 },
@@ -41,11 +63,26 @@ fun AuthNavigation() {
 
             SignupScreen(
 
-                onSignupClick = { name, email, password ->
+                onSignupClick = { name, email, password, onError ->
 
-                    navController.navigate("app") {
-                        popUpTo(AuthRoutes.Signup.route) {
-                            inclusive = true
+                    authManager.signup(
+                        email,
+                        password
+                    ) { success, error ->
+
+                        if (success) {
+
+                            navController.navigate("app") {
+                                popUpTo(AuthRoutes.Signup.route) {
+                                    inclusive = true
+                                }
+                            }
+
+                        } else {
+
+                            onError(
+                                error ?: "Signup failed"
+                            )
                         }
                     }
                 },
