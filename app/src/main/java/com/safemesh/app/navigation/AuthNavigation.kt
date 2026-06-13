@@ -94,7 +94,19 @@ fun AuthNavigation() {
         }
 
         composable("app") {
-            AppNavigation()
+
+            AppNavigation(
+
+                onLogout = {
+
+                    authManager.logout()
+                    navController.navigate(AuthRoutes.Login.route) {
+                        popUpTo("app") {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
     }
 }

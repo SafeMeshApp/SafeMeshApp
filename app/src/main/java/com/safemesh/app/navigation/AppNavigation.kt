@@ -13,10 +13,12 @@ import com.safemesh.app.ui.SosScreen
 import com.safemesh.app.data.ContactRepository
 import com.safemesh.app.model.EmergencyContact
 import com.safemesh.app.ui.EditContactScreen
+import com.safemesh.app.auth.FirebaseAuthManager
 
 @Composable
-fun AppNavigation() {
-
+fun AppNavigation(
+    onLogout: () -> Unit
+    ) {
     val navController = rememberNavController()
 
     NavHost(
@@ -50,7 +52,20 @@ fun AppNavigation() {
         }
 
         composable(Routes.SETTINGS) {
-            SettingsScreen()
+
+            SettingsScreen(
+
+                userEmail =
+                    FirebaseAuthManager()
+                        .currentUser()
+                        ?.email ?: "Unknown User",
+
+                isDarkMode = false,
+
+                onThemeChange = { },
+
+                onLogout = onLogout
+            )
         }
         composable(Routes.CONTACTS) {
 
@@ -108,5 +123,5 @@ fun AppNavigation() {
                 )
             }
         }
-        }
     }
+}

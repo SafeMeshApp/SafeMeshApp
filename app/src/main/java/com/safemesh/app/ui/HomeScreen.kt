@@ -42,7 +42,7 @@ fun HomeScreen(
             Text("Settings")
         }
 
-
+        Spacer(modifier = Modifier.height(12.dp))
         Button(onClick = onContactsClick) {
             Text("Emergency Contacts")
         }
