@@ -72,5 +72,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
 }

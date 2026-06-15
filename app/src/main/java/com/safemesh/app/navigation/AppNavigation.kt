@@ -4,16 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.safemesh.app.auth.FirebaseAuthManager
+import com.safemesh.app.data.ContactRepository
+import com.safemesh.app.data.FirestoreContactRepository
+import com.safemesh.app.model.EmergencyContact
 import com.safemesh.app.ui.AddContactScreen
 import com.safemesh.app.ui.CheckInScreen
+import com.safemesh.app.ui.EditContactScreen
 import com.safemesh.app.ui.EmergencyContactsScreen
 import com.safemesh.app.ui.HomeScreen
 import com.safemesh.app.ui.SettingsScreen
 import com.safemesh.app.ui.SosScreen
-import com.safemesh.app.data.ContactRepository
-import com.safemesh.app.model.EmergencyContact
-import com.safemesh.app.ui.EditContactScreen
-import com.safemesh.app.auth.FirebaseAuthManager
 
 @Composable
 fun AppNavigation(
@@ -90,12 +91,18 @@ fun AppNavigation(
 
                 onSaveContact = { name, phone, relationship ->
 
-                    ContactRepository.addContact(
+                    FirestoreContactRepository.addContact(
                         EmergencyContact(
                             name = name,
                             phone = phone,
                             relationship = relationship
-                        )
+                        ),
+                        onSuccess = {
+                            navController.popBackStack()
+                        },
+                        onFailure = {
+                            println(it)
+                        }
                     )
 
                     navController.popBackStack()
