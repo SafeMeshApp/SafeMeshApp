@@ -72,6 +72,8 @@ fun AppNavigation(
 
             EmergencyContactsScreen(
 
+
+
                 onAddContactClick = {
                     navController.navigate(Routes.ADD_CONTACT)
                 },
@@ -105,7 +107,7 @@ fun AppNavigation(
                         }
                     )
 
-                    navController.popBackStack()
+
                 }
             )
         }
@@ -120,9 +122,19 @@ fun AppNavigation(
 
                     onUpdateContact = { updatedContact ->
 
-                        ContactRepository.updateContact(updatedContact)
+                        FirestoreContactRepository.updateContact(
+                            contact = updatedContact,
 
-                        navController.popBackStack()
+                            onSuccess = {
+                                navController.popBackStack()
+                            },
+
+                            onFailure = { error ->
+                                println(error)
+                            }
+                        )
+
+
                     },
                     onCancel = {
                         navController.popBackStack()
