@@ -1,10 +1,16 @@
 package com.safemesh.app.data
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.safemesh.app.model.EmergencyContact
 
+
 object FirestoreContactRepository {
 
+    private fun getContactsCollection() =
+        db.collection("users")
+            .document(FirebaseAuth.getInstance().currentUser!!.uid)
+            .collection("contacts")
     private val db = FirebaseFirestore.getInstance()
 
     fun addContact(
@@ -13,7 +19,7 @@ object FirestoreContactRepository {
         onFailure: (String) -> Unit
     ) {
 
-        val docRef = db.collection("contacts").document()
+        val docRef = getContactsCollection().document()
 
         val contactWithId = contact.copy(
             id = docRef.id
@@ -33,7 +39,7 @@ object FirestoreContactRepository {
         onFailure: (String) -> Unit
     ) {
 
-        db.collection("contacts")
+        getContactsCollection()
             .get()
             .addOnSuccessListener { result ->
 
@@ -54,7 +60,7 @@ object FirestoreContactRepository {
         onFailure: (String) -> Unit
     ) {
 
-        db.collection("contacts")
+        getContactsCollection()
             .document(contactId)
             .delete()
             .addOnSuccessListener {
@@ -71,7 +77,7 @@ object FirestoreContactRepository {
         onFailure: (String) -> Unit
     ) {
 
-        db.collection("contacts")
+        getContactsCollection()
             .document(contact.id)
             .set(contact)
             .addOnSuccessListener {
