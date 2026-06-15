@@ -13,6 +13,7 @@ import com.safemesh.app.ui.CheckInScreen
 import com.safemesh.app.ui.EditContactScreen
 import com.safemesh.app.ui.EmergencyContactsScreen
 import com.safemesh.app.ui.HomeScreen
+import com.safemesh.app.ui.ProfileScreen
 import com.safemesh.app.ui.SettingsScreen
 import com.safemesh.app.ui.SosScreen
 
@@ -40,7 +41,8 @@ fun AppNavigation(
                 },
                 onContactsClick = {
                     navController.navigate(Routes.CONTACTS)
-                }
+                },
+
             )
         }
 
@@ -65,9 +67,48 @@ fun AppNavigation(
 
                 onThemeChange = { },
 
-                onLogout = onLogout
+                onLogout = onLogout,
+                onProfileClick = {
+                    navController.navigate(Routes.PROFILE)
+                }
             )
         }
+        composable(Routes.PROFILE) {
+
+            ProfileScreen(
+
+                onEditClick = {
+                    navController.navigate(Routes.EDIT_PROFILE)
+                }
+            )
+        }
+//        composable(Routes.EDIT_PROFILE) {
+//
+//            EditProfileScreen(
+//
+//                profile = currentProfile,
+//
+//                onSave = { updatedProfile ->
+//
+//                    ProfileRepository.updateProfile(
+//
+//                        updatedProfile,
+//
+//                        onSuccess = {
+//                            navController.popBackStack()
+//                        },
+//
+//                        onFailure = {
+//                            println(it)
+//                        }
+//                    )
+//                },
+//
+//                onCancel = {
+//                    navController.popBackStack()
+//                }
+//            )
+//        }
         composable(Routes.CONTACTS) {
 
             EmergencyContactsScreen(

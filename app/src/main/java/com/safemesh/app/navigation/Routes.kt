@@ -8,4 +8,6 @@ object Routes {
     const val CONTACTS = "contacts"
     const val ADD_CONTACT = "add_contact"
     const val EDIT_CONTACT = "edit_contact"
+    const val PROFILE = "profile"
+    const val EDIT_PROFILE = "edit_profile"
 }
