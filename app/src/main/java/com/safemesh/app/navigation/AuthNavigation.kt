@@ -77,7 +77,6 @@ fun AuthNavigation() {
                                     inclusive = true
                                 }
                             }
-
                         } else {
 
                             onError(
