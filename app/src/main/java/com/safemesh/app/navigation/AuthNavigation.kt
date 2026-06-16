@@ -6,6 +6,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.safemesh.app.auth.AuthRoutes
 import com.safemesh.app.auth.FirebaseAuthManager
+import com.safemesh.app.data.ProfileRepository
+import com.safemesh.app.model.UserProfile
 import com.safemesh.app.ui.auth.LoginScreen
 import com.safemesh.app.ui.auth.SignupScreen
 
@@ -71,6 +73,29 @@ fun AuthNavigation() {
                     ) { success, error ->
 
                         if (success) {
+
+                            val currentUser = authManager.currentUser()
+
+                            currentUser?.let { user ->
+
+                                ProfileRepository.saveProfile(
+
+                                    UserProfile(
+                                        uid = user.uid,
+                                        email = user.email ?: "",
+                                        name = name,
+                                        phone = ""
+                                    ),
+
+                                    onSuccess = {
+                                        println("Profile saved")
+                                    },
+
+                                    onFailure = {
+                                        println(it)
+                                    }
+                                )
+                            }
 
                             navController.navigate("app") {
                                 popUpTo(AuthRoutes.Signup.route) {

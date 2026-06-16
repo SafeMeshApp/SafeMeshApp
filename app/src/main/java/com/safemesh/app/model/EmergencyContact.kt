@@ -4,8 +4,8 @@ package com.safemesh.app.model
 
 
 data class EmergencyContact(
-    val id: Long = System.currentTimeMillis(),
-    val name: String,
-    val phone: String,
-    val relationship: String
+    val id: String = "",
+    val name: String="",
+    val phone: String="",
+    val relationship: String=""
 )
