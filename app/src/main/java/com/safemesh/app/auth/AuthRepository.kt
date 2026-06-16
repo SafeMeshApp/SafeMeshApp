@@ -3,12 +3,21 @@ package com.safemesh.app.auth
 class AuthRepository(
     private val firebaseAuthManager: FirebaseAuthManager
 ) {
+
     fun signup(
+        name: String,
+        phoneNumber: String,
         email: String,
         password: String,
         callback: (Boolean, String?) -> Unit
     ) {
-        firebaseAuthManager.signup(email, password, callback)
+        firebaseAuthManager.signup(
+            name = name,
+            phoneNumber = phoneNumber,
+            email = email,
+            password = password,
+            callback = callback
+        )
     }
 
     fun login(

@@ -1,5 +1,6 @@
 package com.safemesh.app.ui.auth
 
+import android.util.Patterns
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -12,12 +13,14 @@ fun SignupScreen(
         String,
         String,
         String,
+        String,
         (String) -> Unit
     ) -> Unit,
     onLoginClick: () -> Unit
 ) {
 
     var name by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var error by remember { mutableStateOf("") }
@@ -36,26 +39,46 @@ fun SignupScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Name
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Name") }
+            label = { Text("Name") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        // Phone Number
+        OutlinedTextField(
+            value = phoneNumber,
+            onValueChange = {
+                if (it.length <= 10 && it.all { ch -> ch.isDigit() }) {
+                    phoneNumber = it
+                }
+            },
+            label = { Text("Phone Number") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Email
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") }
+            label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        // Password
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") }
+            label = { Text("Password") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -73,15 +96,20 @@ fun SignupScreen(
             onClick = {
 
                 when {
+
                     name.isBlank() -> {
                         error = "Name cannot be empty"
+                    }
+
+                    phoneNumber.length != 10 -> {
+                        error = "Enter a valid 10-digit phone number"
                     }
 
                     email.isBlank() -> {
                         error = "Email cannot be empty"
                     }
 
-                    !android.util.Patterns.EMAIL_ADDRESS
+                    !Patterns.EMAIL_ADDRESS
                         .matcher(email)
                         .matches() -> {
                         error = "Invalid email"
@@ -97,23 +125,29 @@ fun SignupScreen(
 
                         onSignupClick(
                             name,
+                            phoneNumber,
                             email,
                             password
                         ) { firebaseError ->
 
                             error = when {
 
-                                firebaseError.contains("already", true) ->
-                                    "Email already registered"
+                                firebaseError.contains(
+                                    "already",
+                                    true
+                                ) -> "Email already registered"
 
-                                firebaseError.contains("email", true) ->
-                                    "Invalid email"
+                                firebaseError.contains(
+                                    "email",
+                                    true
+                                ) -> "Invalid email"
 
-                                firebaseError.contains("password", true) ->
-                                    "Weak password"
+                                firebaseError.contains(
+                                    "password",
+                                    true
+                                ) -> "Weak password"
 
-                                else ->
-                                    firebaseError
+                                else -> firebaseError
                             }
                         }
                     }
