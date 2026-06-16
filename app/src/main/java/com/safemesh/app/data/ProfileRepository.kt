@@ -6,7 +6,7 @@ import com.safemesh.app.model.UserProfile
 object ProfileRepository {
 
     private val db = FirebaseFirestore.getInstance()
-
+    var selectedProfile: UserProfile? = null
     fun saveProfile(
         profile: UserProfile,
         onSuccess: () -> Unit,

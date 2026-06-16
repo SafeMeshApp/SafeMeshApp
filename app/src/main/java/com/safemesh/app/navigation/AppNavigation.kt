@@ -16,6 +16,9 @@ import com.safemesh.app.ui.HomeScreen
 import com.safemesh.app.ui.ProfileScreen
 import com.safemesh.app.ui.SettingsScreen
 import com.safemesh.app.ui.SosScreen
+import com.safemesh.app.ui.EditProfileScreen
+import com.safemesh.app.model.UserProfile
+import com.safemesh.app.data.ProfileRepository
 
 @Composable
 fun AppNavigation(
@@ -177,6 +180,36 @@ fun AppNavigation(
 
 
                     },
+                    onCancel = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
+        composable(Routes.EDIT_PROFILE) {
+
+            ProfileRepository.selectedProfile?.let { profile ->
+
+                EditProfileScreen(
+
+                    profile = profile,
+
+                    onSave = { updatedProfile ->
+
+                        ProfileRepository.updateProfile(
+
+                            updatedProfile,
+
+                            onSuccess = {
+                                navController.popBackStack()
+                            },
+
+                            onFailure = {
+                                println(it)
+                            }
+                        )
+                    },
+
                     onCancel = {
                         navController.popBackStack()
                     }

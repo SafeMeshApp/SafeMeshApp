@@ -1,28 +1,16 @@
 package com.safemesh.app.ui
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.*
-import androidx.compose.ui.unit.dp
-import com.safemesh.app.model.UserProfile
-import androidx.compose.material3.Text
-import androidx.compose.material3.Button
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import com.safemesh.app.auth.FirebaseAuthManager
-import com.safemesh.app.data.ProfileRepository
-
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.safemesh.app.auth.FirebaseAuthManager
+import com.safemesh.app.data.ProfileRepository
+import com.safemesh.app.model.UserProfile
 
 @Composable
 fun ProfileScreen(
@@ -53,7 +41,8 @@ fun ProfileScreen(
     if (profile == null) {
 
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
             Text("Loading...")
         }
@@ -64,30 +53,83 @@ fun ProfileScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(
-            text = "Profile",
-            style = MaterialTheme.typography.headlineMedium
-        )
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
 
-        Spacer(modifier = Modifier.height(24.dp))
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-        Text("Name: ${profile!!.name}")
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = "Profile Avatar",
+                    modifier = Modifier.size(100.dp)
+                )
 
-        Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-        Text("Email: ${profile!!.email}")
+                Text(
+                    text = profile!!.name,
+                    style = MaterialTheme.typography.headlineSmall
+                )
 
-        Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
-        Text("Phone: ${profile!!.phone}")
+                Text(
+                    text = profile!!.email,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+
+                Text(
+                    text = "Phone Number",
+                    style = MaterialTheme.typography.labelLarge
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(profile!!.phone)
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = "Email",
+                    style = MaterialTheme.typography.labelLarge
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(profile!!.email)
+            }
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = onEditClick
+            onClick = {
+                profile?.let {
+                    ProfileRepository.selectedProfile = it
+                    onEditClick()
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text("Edit Profile")
         }

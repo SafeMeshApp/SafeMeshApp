@@ -65,9 +65,10 @@ fun AuthNavigation() {
 
             SignupScreen(
 
-                onSignupClick = { name, email, password, onError ->
-
+                onSignupClick = { name, phoneNumber, email, password, onError ->
                     authManager.signup(
+                        name,
+                        phoneNumber,
                         email,
                         password
                     ) { success, error ->
@@ -84,7 +85,7 @@ fun AuthNavigation() {
                                         uid = user.uid,
                                         email = user.email ?: "",
                                         name = name,
-                                        phone = ""
+                                        phone = phoneNumber
                                     ),
 
                                     onSuccess = {
@@ -102,15 +103,13 @@ fun AuthNavigation() {
                                     inclusive = true
                                 }
                             }
+
                         } else {
 
-                            onError(
-                                error ?: "Signup failed"
-                            )
+                            onError(error ?: "Signup failed")
                         }
                     }
                 },
-
                 onLoginClick = {
                     navController.popBackStack()
                 }
