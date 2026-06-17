@@ -18,6 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.CardDefaults
+
 
 @Composable
 fun SettingsScreen(
@@ -31,8 +35,8 @@ fun SettingsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(20.dp),
-
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
 
@@ -45,7 +49,14 @@ fun SettingsScreen(
 
         Card(
             onClick = onProfileClick,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor =
+                    if (isDarkMode)
+                        MaterialTheme.colorScheme.surface
+                    else
+                        Color(0xFFE3F2FD)
+            )
         ) {
             Column(
                 modifier = Modifier.padding(16.dp)

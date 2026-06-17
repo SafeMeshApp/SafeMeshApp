@@ -23,7 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.safemesh.app.data.FirestoreContactRepository
 import com.safemesh.app.model.EmergencyContact
-
+import androidx.compose.foundation.background
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.CardDefaults
 
 @Composable
 fun EmergencyContactsScreen(
@@ -49,11 +51,15 @@ fun EmergencyContactsScreen(
         )
     }
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(16.dp)
     ) {
 
         Text(
-            text = "Emergency Contacts"
+            text = "Emergency Contacts",
+            style = MaterialTheme.typography.headlineMedium
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -71,11 +77,17 @@ fun EmergencyContactsScreen(
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp)
+                            .padding(8.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface
+                        )
                     ) {
 
                         Column(
-                            modifier = Modifier.padding(16.dp)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.background)
+                                .padding(16.dp)
                         ) {
 
                             Text("Name: ${contact.name}")
@@ -132,7 +144,8 @@ fun EmergencyContactsScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = onAddContactClick
+            onClick = onAddContactClick,
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text("Add Contact")
         }

@@ -20,9 +20,12 @@ import com.safemesh.app.ui.EditProfileScreen
 import com.safemesh.app.model.UserProfile
 import com.safemesh.app.data.ProfileRepository
 
+
 @Composable
 fun AppNavigation(
-    onLogout: () -> Unit
+    onLogout: () -> Unit,
+    isDarkMode: Boolean,
+    onThemeChange: (Boolean) -> Unit
     ) {
     val navController = rememberNavController()
 
@@ -66,9 +69,9 @@ fun AppNavigation(
                         .currentUser()
                         ?.email ?: "Unknown User",
 
-                isDarkMode = false,
+                isDarkMode = isDarkMode,
 
-                onThemeChange = { },
+                onThemeChange = onThemeChange,
 
                 onLogout = onLogout,
                 onProfileClick = {
@@ -85,33 +88,6 @@ fun AppNavigation(
                 }
             )
         }
-//        composable(Routes.EDIT_PROFILE) {
-//
-//            EditProfileScreen(
-//
-//                profile = currentProfile,
-//
-//                onSave = { updatedProfile ->
-//
-//                    ProfileRepository.updateProfile(
-//
-//                        updatedProfile,
-//
-//                        onSuccess = {
-//                            navController.popBackStack()
-//                        },
-//
-//                        onFailure = {
-//                            println(it)
-//                        }
-//                    )
-//                },
-//
-//                onCancel = {
-//                    navController.popBackStack()
-//                }
-//            )
-//        }
         composable(Routes.CONTACTS) {
 
             EmergencyContactsScreen(

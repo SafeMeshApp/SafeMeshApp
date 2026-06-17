@@ -17,6 +17,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.safemesh.app.model.UserProfile
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
 
 @Composable
 fun EditProfileScreen(
@@ -36,6 +38,7 @@ fun EditProfileScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(20.dp)
     ) {
 
@@ -48,26 +51,19 @@ fun EditProfileScreen(
 
         OutlinedTextField(
             value = name,
-            onValueChange = { newValue ->
-                name = newValue
-            },
-            label = {
-                Text("Name")
-            }
+            onValueChange = { name = it },
+            label = { Text("Name") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = phone,
-            onValueChange = { newValue ->
-                phone = newValue
-            },
-            label = {
-                Text("Phone")
-            }
+            onValueChange = { phone = it },
+            label = { Text("Phone") },
+            modifier = Modifier.fillMaxWidth()
         )
-
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
@@ -79,7 +75,8 @@ fun EditProfileScreen(
                         phone = phone
                     )
                 )
-            }
+            },
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text("Save")
         }
@@ -87,7 +84,8 @@ fun EditProfileScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
-            onClick = onCancel
+            onClick = onCancel,
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text("Cancel")
         }

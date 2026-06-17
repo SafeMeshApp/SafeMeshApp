@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.background
 
 @Composable
 fun SignupScreen(
@@ -28,6 +29,7 @@ fun SignupScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
@@ -152,7 +154,8 @@ fun SignupScreen(
                         }
                     }
                 }
-            }
+            },
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text("Create Account")
         }

@@ -5,7 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
+import androidx.compose.foundation.background
 @Composable
 fun LoginScreen(
     onLoginClick: (
@@ -20,12 +20,14 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var error by remember { mutableStateOf("") }
 
+
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
-    ) {
+    ){
 
         Text(
             text = "Login",
@@ -34,18 +36,20 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") }
+            label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth()
         )
-
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") }
+            label = { Text("Password") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -102,7 +106,8 @@ fun LoginScreen(
                         }
                     }
                 }
-            }
+            },
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text("Login")
         }

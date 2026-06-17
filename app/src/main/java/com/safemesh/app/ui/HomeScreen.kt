@@ -7,6 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.background
+import androidx.compose.material3.MaterialTheme
+
 
 @Composable
 fun HomeScreen(
@@ -17,33 +20,43 @@ fun HomeScreen(
 
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text("SafeMesh Home")
+        Text(
+            text = "SafeMesh Home",
+            style = MaterialTheme.typography.headlineMedium
+        )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
-        Button(onClick = onSosClick) {
+        Button(onClick = onSosClick,
+            modifier = Modifier.fillMaxWidth()) {
             Text("Send SOS")
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = onCheckInClick) {
+        Button(onClick = onCheckInClick,
+            modifier = Modifier.fillMaxWidth()) {
             Text("Check In")
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = onSettingsClick) {
+        Button(onClick = onSettingsClick,
+            modifier = Modifier.fillMaxWidth()) {
             Text("Settings")
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
-        Button(onClick = onContactsClick) {
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onContactsClick,
+            modifier = Modifier.fillMaxWidth()) {
             Text("Emergency Contacts")
         }
     }

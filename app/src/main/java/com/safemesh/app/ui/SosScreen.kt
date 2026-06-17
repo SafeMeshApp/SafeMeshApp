@@ -5,6 +5,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.background
+
 
 @Composable
 fun SosScreen() {
@@ -21,6 +23,7 @@ fun SosScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -32,10 +35,11 @@ fun SosScreen() {
 
         emergencyTypes.forEach { type ->
             Button(
-                onClick = {
-                    println("Selected: $type")
-                },
-                modifier = Modifier.fillMaxWidth()
+                onClick = { println("Selected: $type") },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
             ) {
                 Text(type)
             }

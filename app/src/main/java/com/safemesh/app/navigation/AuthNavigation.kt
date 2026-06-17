@@ -12,8 +12,10 @@ import com.safemesh.app.ui.auth.LoginScreen
 import com.safemesh.app.ui.auth.SignupScreen
 
 @Composable
-fun AuthNavigation() {
-
+fun AuthNavigation(
+    isDarkMode: Boolean,
+    onThemeChange: (Boolean) -> Unit
+) {
     val navController = rememberNavController()
     val authManager = FirebaseAuthManager()
 
@@ -128,7 +130,9 @@ fun AuthNavigation() {
                             inclusive = true
                         }
                     }
-                }
+                },
+                isDarkMode = isDarkMode,
+                onThemeChange = onThemeChange
             )
         }
     }

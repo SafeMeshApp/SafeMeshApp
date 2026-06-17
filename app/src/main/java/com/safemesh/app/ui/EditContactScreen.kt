@@ -6,6 +6,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.safemesh.app.model.EmergencyContact
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
 
 @Composable
 fun EditContactScreen(
@@ -22,7 +24,8 @@ fun EditContactScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .background(MaterialTheme.colorScheme.background)
+            .padding(20.dp)
     ) {
 
         Text("Edit Contact")
@@ -32,7 +35,8 @@ fun EditContactScreen(
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Name") }
+            label = { Text("Name") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -40,9 +44,9 @@ fun EditContactScreen(
         OutlinedTextField(
             value = phone,
             onValueChange = { phone = it },
-            label = { Text("Phone") }
+            label = { Text("Phone") },
+            modifier = Modifier.fillMaxWidth()
         )
-
         Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedTextField(
@@ -89,7 +93,8 @@ fun EditContactScreen(
                             )
                         }
                     }
-                }
+                },
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Save Changes")
             }
@@ -99,7 +104,8 @@ fun EditContactScreen(
             OutlinedButton(
                 onClick = {
                     onCancel()
-                }
+                },
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Cancel")
             }

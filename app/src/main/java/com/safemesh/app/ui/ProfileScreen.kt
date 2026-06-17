@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.safemesh.app.auth.FirebaseAuthManager
 import com.safemesh.app.data.ProfileRepository
 import com.safemesh.app.model.UserProfile
+import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun ProfileScreen(
@@ -58,13 +60,18 @@ fun ProfileScreen(
     ) {
 
         Card(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            )
         ) {
-
             Column(
-                modifier = Modifier.padding(24.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            ){
 
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
@@ -91,7 +98,10 @@ fun ProfileScreen(
         Spacer(modifier = Modifier.height(20.dp))
 
         Card(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            )
         ) {
 
             Column(
